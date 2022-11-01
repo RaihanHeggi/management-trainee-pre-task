@@ -1,5 +1,7 @@
 ## Web Application Setup
-### .ENV Setup 
+### 1. .ENV Setup 
+For ENV file configuration change this section to your database configurations, make sure you create database with name kb_insurance_absent first on your database management (PHPMyAdmin, SQLYog, or DBBeaver).
+
 ``` 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -8,6 +10,21 @@ DB_DATABASE=kb_insurance_absent
 DB_USERNAME= MYSQL_USERNAME (XAMPP Default 'root')
 DB_PASSWORD= MYSQL_PASSWORD (XAMPP Default '')
 ```
+
+### 2. Running Migration and Seeder
+
+After we create connection to database we need to create table structures and inserting basic data to accessing the website, you can running following command. 
+
+```
+    1. php artisan migrate (command to migrating database structure)
+    2. php db:seed --class=department_seed
+    3. php db:seed --class=employe_seed
+    4. php db:seed --class=users_seed
+    4. php db:seed --class=absents_seed
+```
+
+** When conducting seeding command, please do the command on sequential steps from 1-4 because the data contains foreign keys and maybe error if inserted first.**
+
 
 ## Database Crow Foot Relationship Diagram
 

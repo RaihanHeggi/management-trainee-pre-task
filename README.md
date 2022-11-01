@@ -1,3 +1,14 @@
+## Web Application Setup
+### .ENV Setup 
+``` 
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=kb_insurance_absent
+DB_USERNAME= MYSQL_USERNAME (XAMPP Default 'root')
+DB_PASSWORD= MYSQL_PASSWORD (XAMPP Default '')
+```
+
 ## Database Crow Foot Relationship Diagram
 
 This is relationship diagram used on this project, on this website will contain table such as :

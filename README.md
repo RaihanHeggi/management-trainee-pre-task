@@ -25,6 +25,7 @@ After we create connection to database we need to create table structures and in
 
 **When conducting seeding command, please do the command on sequential steps from 1-4 because the data contains foreign keys this can caused error if inserted first.**
 
+### 3. Application Runtime
 
 ## Database Crow Foot Relationship Diagram
 

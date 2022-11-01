@@ -23,7 +23,7 @@ After we create connection to database we need to create table structures and in
     4. php db:seed --class=absents_seed
 ```
 
-** When conducting seeding command, please do the command on sequential steps from 1-4 because the data contains foreign keys and maybe error if inserted first.**
+**When conducting seeding command, please do the command on sequential steps from 1-4 because the data contains foreign keys and maybe error if inserted first.**
 
 
 ## Database Crow Foot Relationship Diagram

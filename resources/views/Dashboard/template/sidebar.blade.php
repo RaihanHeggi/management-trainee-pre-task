@@ -1,15 +1,15 @@
 <!-- Brand Logo -->
-<a href="index3.html" class="brand-link text-center">
-    <span class="brand-text font-weight-light">Feedback Untuk Heggi</span>
+<a href="#" class="brand-link text-center">
+    <img src="{{ asset('assets/images/KB_SymbolMark.png') }}" style="width:40%;height:40%" class="img" alt="Company Logo">
 </a>
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }} " class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }} " class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="info">
-        <a style="text-decoration:none" class="d-block">{{ Session::get('user') }}</a>
+        <div class="info ml-2">
+            <a style="text-decoration:none;font-size:20px" class="d-block">{{ $data->name }}</a>
         </div>
     </div>
 
@@ -31,7 +31,7 @@
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="{{ url('home') }}" class="nav-link">
+                <a href="{{ url('dashboard') }}" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Home
@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('logout') }}" class="nav-link">
+                <a href="{{ route('logout') }}" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>
                     Logout

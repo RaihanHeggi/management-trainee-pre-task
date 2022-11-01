@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('title_name')
-    <link rel="icon" href="{{ asset('assets/image/BNIMOVEALT.svg') }} " />
+    <link rel="icon" href="{{ asset('assets/images/KB_SymbolMark.png') }}">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google Font: Source Sans Pro -->

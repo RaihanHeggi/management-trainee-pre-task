@@ -4,21 +4,14 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <script src="https://kit.fontawesome.com/13a7b28a80.js" crossorigin="anonymous"></script>
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+       <!-- Font Awesome -->
+       <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- Theme style -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
@@ -42,12 +35,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data Admin</h1>
+                        <h1 class="m-0">Data Management</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('home') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Data Admin</li>
+                        <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data User</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -59,7 +52,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tabel Data Admin</h3>
+                        <h3 class="card-title">Users Data Table</h3>
                     </div>   
 
                     <!-- /.card-header -->
@@ -69,7 +62,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Nama</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">Delete</th>
@@ -79,14 +71,58 @@
                                 @forelse ($data_user as $index => $dc)
                                 <tr>
                                     <th scope="row">{{ $index+1 }}</th>
-                                    <td>{{ $dc['name'] }}</td>
-                                    <td>{{ $dc['username'] }}</td>
-                                    @if($dc['username'] == Session::get('user'))
-                                        <td><a class="btn btn-primary" href="{{route('admin.edit', ['username' => $dc['username']]) }}" role="button"><i class="fa fa-edit"></a></td>
-                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc['username'] }}" disabled> <i class="fa fa-trash"></button></td>
+                                    <td>{{ $dc->username }}</td>
+                                    @if($dc->username == Auth::user()->username)
+                                        <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
+                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}" disabled> <i class="fa fa-trash"></button></td>
                                     @else
-                                        <td><a class="btn btn-primary" href="{{route('admin.edit', ['username' => $dc['username']]) }}" role="button"><i class="fa fa-edit"></a></td>
-                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc['username'] }}"> <i class="fa fa-trash"></button></td>
+                                        <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
+                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}"> <i class="fa fa-trash"></button></td>
+                                    @endif
+                                </tr>
+                                @empty
+                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
+                                @endforelse
+                            </tbody>
+                        </table>                 
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Users Data Table</h3>
+                    </div>   
+
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @include('Login.template.flash-message')
+                        <table id="tabel_admin" style="width:100%" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($data_user as $index => $dc)
+                                <tr>
+                                    <th scope="row">{{ $index+1 }}</th>
+                                    <td>{{ $dc->username }}</td>
+                                    @if($dc->username == Auth::user()->username)
+                                        <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
+                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}" disabled> <i class="fa fa-trash"></button></td>
+                                    @else
+                                        <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
+                                        <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}"> <i class="fa fa-trash"></button></td>
                                     @endif
                                 </tr>
                                 @empty
@@ -104,7 +140,7 @@
 
         <!-- Modal Delete -->
         @foreach($data_user as $dc)
-        <div class="modal fade" id="delete_data_{{ $dc['username'] }}" tabindex="-1" role="dialog" aria-labelledby="delete_data_{{ $dc['username'] }}" aria-hidden="true">
+        <div class="modal fade" id="delete_data_{{ $dc->username }}" tabindex="-1" role="dialog" aria-labelledby="delete_data_{{ $dc->username }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -116,7 +152,7 @@
                 <div class="modal-body">Are Sure To Delete This Items</div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ route('admin.delete', ['username' => $dc['username']]) }}">Hapus</a>
+                    <a class="btn btn-primary" href="">Hapus</a>
                 </div>
                 </div>
             </div>

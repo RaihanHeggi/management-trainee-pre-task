@@ -12,10 +12,23 @@
     <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        .carousel .item {
+            height: 200px;
+        }
+
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 300px;
+        }
+
+    </style>
 @endsection
 
 @section('title_name')
-    <title>Monitoring Form | Home</title>
+    <title>Online Attendance| Home</title>
 @endsection
 
 @section('sidebar')
@@ -29,8 +42,9 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data Masukan</h1>
-                    </div><!-- /.col -->
+                        <h1 class="m-0">Home</h1>
+                    </div>
+                    <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
@@ -39,44 +53,128 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
 
-        <!-- Main content -->
+        <!-- /.content-header -->
         <section class="content">
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Hasil Form</h3>
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: green; color:aliceblue">
+                            <div class="inner">
+                                <h4 class="text-right"><b>Ontime</b></h4>
+                                <h3><sub style="font-size: 20px">On Time</sub></h3>
+                                <h5>{{ $statisticData['count_ontime'] ?? "0" }}</h5>
+                                <p><b>Total Waktu On Time</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users" style="padding: 35px;"></i> 
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table style="width:100%"  id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Kesan </th>
-                            <th scope="col">Saran </th>
-                            <th scope="col">Pesan</th>
-                        </tr>
-                        </thead>
-                            <tbody>
-                                @forelse($data as $index => $dk)
-                                    <tr>
-                                        <td>{{ $index+1}}</td>
-                                        <td>{{ $dk['kesan']}}</td>
-                                        <td>{{ $dk['saran']}}</td>
-                                        <td>{{ $dk['pesan'] }}</td>
-                                    </tr>
-                                    </tr>
-                                @empty
-                                <td colspan="4" class="table-active text-center">Tidak Ada Data</td>
-                                @endforelse
-                            </tbody>
-                        </table>
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: #3197D0; color:aliceblue">
+                            <div class="inner">
+                                <h4 class="text-right"><b>{{ $timeData['isOverwork'] }} Minutes</b></h4>
+                                <h3><sub style="font-size: 20px">Overtime</sub></h3>
+                                <h5>{{ $statisticData['count_overwork'] ?? "0"}}</h5>
+                                <p><b>Total Waktu Overwork</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users" style="padding: 35px;"></i> 
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.card-body -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: #ffc107; color:aliceblue">
+                            <div class="inner">
+                                <h4 class="text-right"><b>{{ $timeData['isEarly'] }} Minutes</b></h4>
+                                <h3><sub style="font-size: 20px">Early</sub></h3>
+                                <h5>{{ $statisticData['count_early'] ?? "0" }}</h5>
+                                <p><b>Total Waktu Early</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users" style="padding: 35px;"></i> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box" style="background-color: maroon; color:aliceblue">
+                            <div class="inner">
+                                <h4 class="text-right"><b>{{ $timeData['isLate'] }} Minutes</b></h4>
+                                <h3><sub style="font-size: 20px">Late</sub></h3>
+                                <h5>{{ $statisticData['count_telat'] ?? "0"}}</h5>
+                                <p><b>Total Waktu Telat</b></p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users" style="padding: 35px;"></i> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.card -->
+            </div>
+        </section>
+
+        <section class="content mb-2">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">User Attendance Logs</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table style="width:100%"  id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Clock In </th>
+                        <th scope="col">Clock Out </th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Clock In Status</th>
+                        <th scope="col">Clock Out Status</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                            @forelse($dataAttendances as $index => $dk)
+                                <tr>
+                                    <td>{{ $index+1 }}</td>
+                                    <td>{{ Carbon\Carbon::parse($dk->absents_date)->format('Y-m-d') }}</td>
+                                    <td>{{ $dk->clock_in }}</td>
+                                    <td>{{ $dk->clock_out ?? 'Not Yet'}}</td>
+                                    <td>{{ $dk->absents_note }}</td>
+
+                                    @if($dk->is_telat == "1")
+                                        <td><span class="badge badge-danger">Telat</span></td>
+                                    @elseif($dk->is_telat == "0")
+                                        <td><span class="badge badge-success">Ontime</span></td>
+                                    @endif
+
+
+                                    @if($dk->is_early == "1")
+                                        <td><span class="badge badge-warning">Early</span></td>
+                                    @elseif($dk->is_overwork == "1")
+                                        <td><span class="badge badge-primary">Overwork</span></td>
+                                    @elseif($dk->is_ontime == "1")
+                                        <td><span class="badge badge-success">Ontime</span></td>
+                                    @else 
+                                        <td><span class="badge badge-warning">Not Yet</span></td>
+                                    @endif
+
+                                </tr>
+                            @empty
+                                <td colspan="5" class="table-active text-center">Tidak Ada Data</td>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
             </div>
         </section>
     </div>

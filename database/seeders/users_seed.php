@@ -21,6 +21,7 @@ class users_seed extends Seeder
         DB::table('users')->insert([
             'employee_data_id' => DB::table('employee')->where('name',"Sya Raihan Heggi")->value('id'),
             'user_role' => 'Karyawan',
+            'username' => 'RaihanHeggi',
             'password' => Hash::make('123456'),
             'account_status' => 'active',
             'created_at' => Carbon::now()->toDateTimeString(),
@@ -30,6 +31,7 @@ class users_seed extends Seeder
         DB::table('users')->insert([
             'employee_data_id' => DB::table('employee')->where('name',"Admin Test")->value('id'),
             'user_role' => 'Admin',
+            'username' => 'admin',
             'password' => Hash::make('123456'),
             'account_status' => 'active',
             'created_at' => Carbon::now()->toDateTimeString(),

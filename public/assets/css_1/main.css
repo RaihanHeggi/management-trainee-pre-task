@@ -592,6 +592,7 @@ input.input100 {
 
 /*------------------------------------------------------------------
 [ Alert validate ]*/
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 
 .validate-input {
   position: relative;
@@ -631,8 +632,10 @@ input.input100 {
 }
 
 .alert-validate::after {
-  content: "\f12a";
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  content: "\f0f3";
+  font-weight: 900;
+  font-size: 30px;
   display: block;
   position: absolute;
   z-index: 110;

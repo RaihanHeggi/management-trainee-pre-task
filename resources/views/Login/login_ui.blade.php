@@ -5,6 +5,9 @@
 
 @endsection
 @section('page-css')
+	<!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+	
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css_1/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/css_1/main.css') }}">
 @endsection
@@ -12,15 +15,15 @@
 <div class="limiter">		
 	<div class="container-login100">
 		<div class="wrap-login100">
-			<form class="login100-form validate-form" method="post" action="">
+			<form class="login100-form validate-form" method="post" action="{{ route('signin') }}">
 				@csrf
-					<img src="{{ asset('assets/images/kb_insurance_logo.png') }}" style="width:auto;height:30%;margin-left:20px">
+					<img src="{{ asset('assets/images/kb_insurance_logo.png') }}" style="width:auto;height:30%;margin-left:20px" alt="Logo KB Insurance">
 					<span style="font-size:30px" class="login100-form-title p-b-25">
 						Online Working Attendance Website
 					</span>
 					@include('Login.template.flash-message')			
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
-						<input class="input100" @error('username') is-invalid @enderror type="text" name="username" value="{{ old('username') }}" >
+						<input class="input100" type="text" name="username" >
 						<span class="focus-input100"></span>
 						<span class="label-input100">Username</span>
 					</div>	

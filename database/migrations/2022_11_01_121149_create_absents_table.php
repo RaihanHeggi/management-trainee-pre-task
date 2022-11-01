@@ -17,9 +17,10 @@ class CreateAbsentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->enum('absents_note', ['WFO','WFH','Sick','On Leave']);
-            $table->time('clock_in');
-            $table->time('clock_out');
+            $table->time('clock_in')->nullable();
+            $table->time('clock_out')->nullable();
             $table->enum('is_telat', ['0','1'])->nullable();
+            $table->enum('is_early', ['0','1'])->nullable();
             $table->enum('is_overwork', ['0','1'])->nullable();
             $table->enum('is_ontime', ['0','1'])->nullable();
             $table->datetime('absents_date');

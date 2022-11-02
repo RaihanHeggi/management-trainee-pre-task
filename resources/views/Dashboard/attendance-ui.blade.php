@@ -30,7 +30,7 @@
 @endsection
 
 @section('title_name')
-    <title>Admin Management</title>
+    <title>Attendance</title>
 @endsection
 
 @section('sidebar')
@@ -79,7 +79,7 @@
                                     <td class="text-center">
                                         <div>
                                             @if($clock_in_data == "No Data Recorded")
-                                                <a class="btn btn-primary" href="#" role="button">Check In</a>
+                                                <a class="btn btn-primary" href="{{ url('clock_in') }}" role="button">Check In</a>
                                             @else
                                                 <a style="font-weight:bold"> Done Check in</a>
                                             @endif

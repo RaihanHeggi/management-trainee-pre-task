@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AttendanceController;
 
 use App\Imports\UserImport;
 
@@ -33,3 +34,5 @@ Route::post('/user-input', [DashboardController::class, 'insert_data_user'])->mi
 Route::get('admin-detail/{id}', [DashboardController::class, 'index_edit'])->name('admin.edit')->middleware('auth');
 Route::get('admin-delete/{id}', [DashboardController::class, 'delete_data'])->name('admin.delete')->middleware('auth');
 Route::post('/user-update', [DashboardController::class, 'update_data'])->middleware('auth');
+
+Route::get('clock_in', [AttendanceController::class, 'clock_in']);

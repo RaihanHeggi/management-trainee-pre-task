@@ -28,7 +28,7 @@
 @endsection
 
 @section('title_name')
-    <title>Online Attendance| Home</title>
+    <title>Home</title>
 @endsection
 
 @section('sidebar')

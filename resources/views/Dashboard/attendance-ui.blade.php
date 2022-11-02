@@ -62,7 +62,7 @@
             <div class="container-fluid">                  
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ Carbon\Carbon::parse(Carbon\Carbon::now())->format('Y-m-d') }} Working Attendance</h3>
+                        <h3 class="card-title">{{ Carbon\Carbon::parse(Carbon\Carbon::now()->timezone('Asia/Jakarta'))->format('Y-m-d') }} Working Attendance</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

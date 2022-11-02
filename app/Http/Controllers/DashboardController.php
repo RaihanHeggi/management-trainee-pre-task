@@ -120,7 +120,7 @@ class DashboardController extends Controller
     public function index_attendance(){
         $userID = Auth::user()->employee_data_id;
         $data = DB::table('employee')->where('id', $userID)->first();
-        $curr_time =  Carbon::parse(Carbon::now())->format('Y-m-d');
+        $curr_time =  Carbon::parse(Carbon::now()->timezone('Asia/Jakarta'))->format('Y-m-d');
         $clock_in_data = DB::table('absents')->where('user_id',Auth::user()->id)->whereDate('absents_date','=', $curr_time)->value('clock_in') ?? "No Data Recorded";
         $clock_out_data = DB::table('absents')->where('user_id',Auth::user()->id)->whereDate('absents_date','=', $curr_time)->value('clock_out') ?? "No Data Recorded";
         

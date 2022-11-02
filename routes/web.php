@@ -22,7 +22,7 @@ Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('g
 Route::post('/login', [LoginController::class, 'authenticate'])->name('signin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
+Route::get('/attendance-clock', [DashboardController::class, 'index_attendance'])->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/dashboard-admin', [DashboardController::class, 'index_admin'])->middleware('auth');

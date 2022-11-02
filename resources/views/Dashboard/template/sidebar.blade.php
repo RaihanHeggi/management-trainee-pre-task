@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('dashboard-admin') }}" class="nav-link">
+                <a href="{{ url('attendance-clock') }}" class="nav-link">
                 <i class="nav-icon fas fa-clock"></i>
                 <p>
                     Working Attendance
@@ -62,7 +62,7 @@
 
 
 
-            @if(Auth::user()->user_role == "Admin" || Auth::user()->user_role == "Karyawan")
+            @if(Auth::user()->user_role == "Admin")
                 <li class="nav-item">
                     <a href="{{ url('dashboard-admin') }}" class="nav-link">
                     <i class="nav-icon fas fa-user"></i>

@@ -1,5 +1,17 @@
+<style>
+    #company-logo{
+        background-color: #5e514d !important 
+    }
+
+    .sidebar { 
+        background-color: #776e64 !important;
+    }
+
+</style>
+
+
 <!-- Brand Logo -->
-<a href="#" class="brand-link text-center">
+<a href="#" id="company-logo" class="brand-link text-center">
     <img src="{{ asset('assets/images/KB_SymbolMark.png') }}" style="width:40%;height:40%" class="img" alt="Company Logo">
 </a>
 <div class="sidebar">
@@ -41,13 +53,26 @@
             </li>
             <li class="nav-item">
                 <a href="{{ url('dashboard-admin') }}" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
+                <i class="nav-icon fas fa-clock"></i>
                 <p>
-                    Kelola Akses
-                    <!-- <i class="right fas fa-angle-left"></i> -->
+                    Working Attendance
                 </p>
                 </a>
             </li>
+
+
+
+            @if(Auth::user()->user_role == "Admin" || Auth::user()->user_role == "Karyawan")
+                <li class="nav-item">
+                    <a href="{{ url('dashboard-admin') }}" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                        Admin Management
+                        <!-- <i class="right fas fa-angle-left"></i> -->
+                    </p>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt"></i>

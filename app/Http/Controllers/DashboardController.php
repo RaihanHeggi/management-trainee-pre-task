@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+use Hash;
+
 
 
 class DashboardController extends Controller
@@ -65,6 +67,20 @@ class DashboardController extends Controller
         return $difference;
     }
 
+    public function delete_data($id){
+        // DB::table('users')->where('id',$id)->delete();
+
+        // implement soft-deletions 
+        $data = array(
+            'account_status' => 'inactive'
+        );
+        DB::table('users')->where('id', $id)->update($data);
+        return redirect('dashboard-admin')->with('success', 'Account Has Been Deactivated');
+    }
+
+
+    //Function Related To Index
+
     public function index(){
         $userID = Auth::user()->employee_data_id;
         $data = DB::table('employee')->where('id', $userID)->first(); 
@@ -92,6 +108,17 @@ class DashboardController extends Controller
         return view('Dashboard.adminManagement.tambah-ui', compact('data', 'data_department'));
     }
 
+    public function index_edit($id){
+        $userID = Auth::user()->employee_data_id;
+        $data = DB::table('employee')->where('id', $userID)->first();
+        $dataUser = DB::table('users')->where('id',$id)->first();
+        $data_employee = DB::table('employee')->where('id', DB::table('users')->where('id', $id)->value('employee_data_id'))->first();
+        $data_department = DB::table('department')->get();
+        return view('Dashboard.adminManagement.edit-ui', compact('data','dataUser','data_employee', 'data_department'));
+    }
+
+
+    //Add or Modify Users Data
     public function insert_data_user(Request $request){
         if( DB::table('employee')->where('name', $request->nama)->exists() || DB::table('users')->where('username', $request->username)->exists()){
             return back()->with('error', 'Error Data Exist');
@@ -120,5 +147,32 @@ class DashboardController extends Controller
 
         DB::table('users')->insert($userData);
         return redirect('add-user')->with('success', 'User Created');
+    }
+
+    public function update_data(Request $request){
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        $employee_id = DB::table('users')->where('username', $request->username)->value('employee_data_id');
+        $employeeData = array(
+            'name' => $request->nama,
+        );
+
+        DB::table('employee')->where('id',$employee_id)->update($employeeData); 
+
+        $userData = array(
+            'employee_data_id' =>  $employee_id ,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'user_role' => $request->role_user,
+            'account_status' => $request->account_status,
+            'updated_at' => Carbon::now(),
+
+        );
+
+        DB::table('users')->where('username',$request->username)->update($userData);
+        return redirect('dashboard-admin')->with('success', 'User Updated');
     }
 }

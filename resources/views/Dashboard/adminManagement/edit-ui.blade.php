@@ -29,11 +29,11 @@
 @endsection
 
 @section('title_name')
-    <title>Add User Data</title>
+    <title>Edit Admin Data</title>
 @endsection
 
 @section('sidebar')
-    @include('Dashboard.template.sidebar')
+    @include('Dashboard.template.sidebar')  
 @endsection
 
 @section('content')
@@ -43,13 +43,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">User Data</h1>
+                        <h1 class="m-0">Data Admin</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ url('dashboard-admin') }}">Data Management</a></li>
-                        <li class="breadcrumb-item active">Add User Data</li>
+                        <li class="breadcrumb-item active">Edit User Data</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -62,22 +62,22 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Adding New User Account</h3>
+                        <h3 class="card-title">Edit User Data Form</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         @include('Login.template.flash-message')
-                        <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('user-input')}}">
+                        <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('user-update')}}">
                             @csrf
-                            <div class="col-lg-8 connectedSortable" style="padding-left: 20px">
+                            <div class="col-lg-6 connectedSortable" style="padding-left: 20px">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Nama</span>
-                                    <input type="text" name="nama" class="form-control" placeholder="Nama" />
+                                    <input type="text" name="nama" class="form-control" placeholder="{{ $data_employee->name}}" value="{{ $data_employee->name}} " />
                                 </div>
                                 <br />
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Username</span>
-                                    <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"/>
+                                    <input readonly type="text" class="form-control" name="username" placeholder="{{ $dataUser->username}}" value="{{ $dataUser->username }} " aria-label="Username" aria-describedby="addon-wrapping"/>
                                 </div>
                                 <br />
                                 <div class="input-group flex-nowrap">
@@ -85,33 +85,21 @@
                                     <input type="password" class="form-control" name="password"  placeholder="Password" aria-label="Password" minlength="5" aria-describedby="addon-wrapping" />
                                 </div>
                                 <br />
-                                
                                 <div class="input-group">
-                                    <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Department</span>
-                                    <select class='form-control' data-width='88%' id='department_list' name='department'>
-                                        <option value="">Choose Departement</option>
-                                        @foreach ($data_department as $dw)
-                                            <option value='{{ $dw->id}}'>{{ $dw->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <br/>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Position</span>
-                                    <select class="form-control" data-width='88%' id="position" name="position">
-                                        <option selected>Choose Position</option>
-                                        <option name="position" value="PM">PM</option>
-                                        <option name="position" value="Trainee">Trainee</option>
-                                        <option name="position" value="Intern">Intern</option>
+                                    <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Access Level</span>
+                                    <select class="form-control" data-width='83%' id="role_user" name="role_user">
+                                        <option selected>Choose Access Level</option>
+                                        <option name="role_user" value="Admin">Admin</option>
+                                        <option name="role_user" value="Karyawan">Karyawan</option>
                                     </select>
                                 </div>
                                 <br />
                                 <div class="input-group">
                                     <span class="input-group-text" id="addon-wrapping" style="width: 120px;">Access Level</span>
-                                    <select class="form-control" data-width='88%' id="role_user" name="role_user">
-                                        <option selected>Choose Access Level</option>
-                                        <option name="role_user" value="Admin">Admin</option>
-                                        <option name="role_user" value="Karyawan">Karyawan</option>
+                                    <select class="form-control" data-width='83%' id="account_status" name="account_status">
+                                        <option selected>Account Status</option>
+                                        <option name="account_status" value="active">Active</option>
+                                        <option name="account_status" value="inactive">Inactive</option>
                                     </select>
                                 </div>
                                 <br />
@@ -129,18 +117,9 @@
         </section>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#department_list').select2();    
-            $('#position').select2();   
-            $('#role_user').select2();
-        });
-    </script>
-
 @endsection
 
 @section('depedencies_bottom')
-        
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
 @endsection

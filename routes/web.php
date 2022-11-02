@@ -29,3 +29,7 @@ Route::get('/dashboard-admin', [DashboardController::class, 'index_admin'])->mid
 
 Route::get('/add-user', [DashboardController::class, 'index_tambah_user'])->middleware('auth');
 Route::post('/user-input', [DashboardController::class, 'insert_data_user'])->middleware('auth');
+
+Route::get('admin-detail/{id}', [DashboardController::class, 'index_edit'])->name('admin.edit')->middleware('auth');
+Route::get('admin-delete/{id}', [DashboardController::class, 'delete_data'])->name('admin.delete')->middleware('auth');
+Route::post('/user-update', [DashboardController::class, 'update_data'])->middleware('auth');

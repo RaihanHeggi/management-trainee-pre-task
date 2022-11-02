@@ -27,7 +27,7 @@ class LoginController extends Controller
         }
 
         //Authentication Error
-        return back()->with('error', 'Terjadi Kesalahan Authentikasi');
+        return back()->with('error', 'Authentication Failed Due To Wrong Password or Username');
     }
 
     public function logout(){

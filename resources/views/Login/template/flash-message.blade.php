@@ -30,6 +30,6 @@
 
 @if ($errors->any())
 <div class="alert alert-danger">
-    Harap cek kembali isian anda.
+    Error Occured
 </div>
 @endif

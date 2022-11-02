@@ -3,18 +3,19 @@
 @section('depedencies_upper')
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-       <!-- Font Awesome -->
-       <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
+    <script src="https://kit.fontawesome.com/13a7b28a80.js" crossorigin="anonymous"></script>
+
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
-    <!-- Theme style -->
+    <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <!-- jQuery -->
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
@@ -47,22 +48,30 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
+        
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid">                  
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Users Data Table</h3>
-                    </div>   
-
+                        <h3 class="card-title">Data Users</h3>
+                    </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         @include('Login.template.flash-message')
+                        <form action="{{ url('add-user') }}" method="get" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <button class="btn btn-primary w-22" type="submit" id="button-addon2">Add Data</button>
+                            </div>
+                        </form>
                         <table id="tabel_admin" style="width:100%" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Username</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Account Status</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">Delete</th>
                                 </tr>
@@ -72,6 +81,8 @@
                                 <tr>
                                     <th scope="row">{{ $index+1 }}</th>
                                     <td>{{ $dc->username }}</td>
+                                    <td>{{ $dc->user_role }}</td>
+                                    <td>{{ $dc->account_status }}</td>
                                     @if($dc->username == Auth::user()->username)
                                         <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
                                         <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}" disabled> <i class="fa fa-trash"></button></td>
@@ -90,24 +101,31 @@
                 </div>
                 <!-- /.card -->
             </div>
-        </section>
+        </section> 
 
-        <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid">                  
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Users Data Table</h3>
-                    </div>   
-
+                        <h3 class="card-title">Data Users</h3>
+                    </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         @include('Login.template.flash-message')
-                        <table id="tabel_admin" style="width:100%" class="table table-striped">
+                        <form action="{{ url('user-import') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-primary ml-2" type="submit" id="button-addon2">Import</button>
+                            </div>
+                        </form>
+                        <table id="tabel_department" style="width:100%" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">Username</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Account Status</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">Delete</th>
                                 </tr>
@@ -117,6 +135,8 @@
                                 <tr>
                                     <th scope="row">{{ $index+1 }}</th>
                                     <td>{{ $dc->username }}</td>
+                                    <td>{{ $dc->user_role }}</td>
+                                    <td>{{ $dc->account_status }}</td>
                                     @if($dc->username == Auth::user()->username)
                                         <td><a class="btn btn-primary" href="#" role="button"><i class="fa fa-edit"></a></td>
                                         <td><button class="btn btn-danger" type="submit" style="border-radius: 10px;"  data-toggle="modal" data-target="#delete_data_{{ $dc->username }}" disabled> <i class="fa fa-trash"></button></td>
@@ -135,7 +155,7 @@
                 </div>
                 <!-- /.card -->
             </div>
-        </section>
+        </section> 
 
 
         <!-- Modal Delete -->
@@ -162,39 +182,6 @@
 
     </div>
 
-    <script>
-        $(function() {
-            $('input[name="from_date"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                locale: {
-                    format: 'YYYY-MM-DD'
-                }
-            }),
-
-            $('input[name="to_date"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                locale: {
-                    format: 'YYYY-MM-DD'
-                }
-            });
-
-            $(document).ready(function(){
-                $("#deleteButton").click(function(e){
-                    e.preventDefault();
-                    console.log("Hi");
-
-                    var user_id = $(this).attr('data-id');
-                    console.log(user_id);
-                });
-            });
-
-        });
-    </script>
-
 @endsection
 
 @section('depedencies_bottom')
@@ -202,9 +189,6 @@
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -224,6 +208,9 @@
     <script>
         $(function () {
             $("#tabel_admin").DataTable({
+                responsive:true,
+            });
+            $("#tabel_department").DataTable({
                 responsive:true,
             });
         });

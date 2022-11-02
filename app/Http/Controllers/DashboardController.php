@@ -84,4 +84,41 @@ class DashboardController extends Controller
         $data_user = DB::table('users')->get();
         return view('Dashboard.dashboard-admin-management', compact('data','data_user'));
     }
+
+    public function index_tambah_user(){
+        $userID = Auth::user()->employee_data_id;
+        $data = DB::table('employee')->where('id', $userID)->first();
+        $data_department = DB::table('department')->get();
+        return view('Dashboard.adminManagement.tambah-ui', compact('data', 'data_department'));
+    }
+
+    public function insert_data_user(Request $request){
+        if( DB::table('employee')->where('name', $request->nama)->exists() || DB::table('users')->where('username', $request->username)->exists()){
+            return back()->with('error', 'Error Data Exist');
+        }
+
+        $employeeData = array(
+            'name' => $request->nama,
+            'department_id' => $request->department,
+            'department_role' => $request->position,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        );
+
+        DB::table('employee')->insert($employeeData); 
+
+        $userData = array(
+            'employee_data_id' => DB::table('employee')->where('name', $request->nama)->value('id'),
+            'username' => $request->username,
+            'password' => $request->password,
+            'user_role' => $request->role_user,
+            'account_status' => 'active',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+
+        );
+
+        DB::table('users')->insert($userData);
+        return redirect('add-user')->with('success', 'User Created');
+    }
 }

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 
+use App\Imports\UserImport;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +27,5 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/dashboard-admin', [DashboardController::class, 'index_admin'])->middleware('auth');
 
+Route::get('/add-user', [DashboardController::class, 'index_tambah_user'])->middleware('auth');
+Route::post('/user-input', [DashboardController::class, 'insert_data_user'])->middleware('auth');

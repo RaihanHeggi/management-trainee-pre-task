@@ -34,7 +34,7 @@ class DashboardController extends Controller
     private function getTimeLate($id){
         $isLate = DB::table('absents')->where('user_id',$id)->where('is_telat','1')->get();
         $difference = 0 ;
-        $start_time = new Carbon('08:00:00');
+        $start_time = Carbon::parse('08:00:00')->format('H:i:s');
         foreach($isLate as $late){
             $end_time = new Carbon($late->clock_in);
             $time_difference_in_minutes = $end_time->diffInMinutes($start_time);

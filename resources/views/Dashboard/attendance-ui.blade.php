@@ -3,19 +3,12 @@
 @section('depedencies_upper')
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     
     
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <script src="https://kit.fontawesome.com/13a7b28a80.js" crossorigin="anonymous"></script>
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
 
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -79,7 +72,7 @@
                                     <td class="text-center">
                                         <div>
                                             @if($clock_in_data == "No Data Recorded")
-                                                <a class="btn btn-primary" href="{{ url('clock_in') }}" role="button">Check In</a>
+                                                <button type="button" id="checkin-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Check In</button>
                                             @else
                                                 <a style="font-weight:bold"> Done Check in</a>
                                             @endif
@@ -101,9 +94,9 @@
                                         @if($clock_in_data == "No Data Recorded" )
                                             <a style="font-weight:bold"> No Check-in Recorded</a>
                                         @elseif($clock_out_data == "No Data Recorded")
-                                            <a class="btn btn-seconddary" href="#" role="button">Check Out</a>
+                                            <a class="btn btn-primary" href="{{ url('clock_out') }}" role="button">Check Out</a>
                                         @else
-                                            <a style="font-weight:bold"> Done Check in</a>
+                                            <a style="font-weight:bold"> Done Checkout</a>
                                         @endif
                                         <br>
                                         @if($clock_out_data != "No Data Recorded")
@@ -127,11 +120,52 @@
         </section> 
     </div>
 
+    <!-- Modal -->
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Clock In</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{{ url('clock_in') }}">
+                @csrf
+                <div class="modal-body">
+                    <p><center>Please Click Outside the Modal To Close this modal</center></p>
+                    <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Work Location</span>
+                    <select class="form-control" data-width='30%' id="position" name="position">
+                        <option selected>Choose Location</option>
+                        <option name="position" value="WFH">WFH</option> 
+                        <option name="position" value="WFO">WFO</option> 
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button style="background-color:#f2a900;border-color:#f2a900" type="submit" class="btn btn-success mt-3 w-40" name='action' >Submit</button>
+                </div>
+            </form>            
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function($) {
+            $('#checkin-btn').on('click', function(){
+                $('#exampleModal').modal('show');
+            }),
+
+            $('#close-modal').on('click', function(){
+                $('exampleModal').modal('toggle'); 
+            });
+        });
+
+    </script>
+
 @endsection
 
 @section('depedencies_bottom')
     <!-- jQuery -->
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script> -->
     <!-- Bootstrap 4 -->
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>

@@ -35,4 +35,5 @@ Route::get('admin-detail/{id}', [DashboardController::class, 'index_edit'])->nam
 Route::get('admin-delete/{id}', [DashboardController::class, 'delete_data'])->name('admin.delete')->middleware('auth');
 Route::post('/user-update', [DashboardController::class, 'update_data'])->middleware('auth');
 
-Route::get('clock_in', [AttendanceController::class, 'clock_in']);
+Route::post('clock_in', [AttendanceController::class, 'clock_in']);
+Route::get('clock_out', [AttendanceController::class, 'clock_out']);

@@ -12,7 +12,7 @@
 
 <!-- Brand Logo -->
 <a href="#" id="company-logo" class="brand-link text-center">
-    <img src="{{ asset('assets/images/KB_SymbolMark.png') }}" style="width:40%;height:40%" class="img" alt="Company Logo">
+    <img src="{{ asset('assets/images/KB_SymbolMark.png') }}" style="width:30%;height:30%" class="img" alt="Company Logo">
 </a>
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
@@ -46,7 +46,7 @@
                 <a href="{{ url('dashboard') }}" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                    Home
+                    Dashboard
                     <!-- <i class="right fas fa-angle-left"></i> -->
                 </p>
                 </a>
@@ -67,7 +67,16 @@
                     <a href="{{ url('dashboard-admin') }}" class="nav-link">
                     <i class="nav-icon fas fa-user"></i>
                     <p>
-                        Admin Management
+                        Users Management
+                        <!-- <i class="right fas fa-angle-left"></i> -->
+                    </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('statistics') }}" class="nav-link">
+                    <i class="nav-icon fa fa-line-chart"></i>
+                    <p>
+                        Statistics
                         <!-- <i class="right fas fa-angle-left"></i> -->
                     </p>
                     </a>

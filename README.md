@@ -44,6 +44,21 @@ APP_KEY needed to run application so we need to generate key, to generate key ca
 ## Website Feature
 
 
+## Website Sneak Peak
+
+### Login Frontpage
+![Login Page](https://user-images.githubusercontent.com/58820833/199671089-df6ad084-ab47-4005-b2b6-11b591fa52e3.PNG)
+
+### Checkin and Checkout Page
+![Absen Page](https://user-images.githubusercontent.com/58820833/199671111-0c2e0ae3-06ca-4168-bf78-9117482f72d8.PNG)
+
+### Users Personal Attendance Statistics
+![Main Dashboard](https://user-images.githubusercontent.com/58820833/199671130-8cc4a2db-775e-4ce1-9c5c-6ec0bca4bc5e.PNG)
+
+### All Users Attendance Statistics
+![Statistics](https://user-images.githubusercontent.com/58820833/199671148-f32af3ed-6157-4a7b-b990-628ba07bb6e2.PNG)
+
+
 
 ## Database Crow Foot Relationship Diagram
 

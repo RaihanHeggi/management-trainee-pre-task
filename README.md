@@ -17,10 +17,10 @@ After we create connection to database we need to create table structures and in
 
 ```
     1. php artisan migrate (command to migrating database structure)
-    2. php db:seed --class=department_seed
-    3. php db:seed --class=employe_seed
-    4. php db:seed --class=users_seed
-    4. php db:seed --class=absents_seed
+    2. php artisan db:seed --class=department_seed
+    3. php artisan db:seed --class=employe_seed
+    4. php artisan db:seed --class=users_seed
+    4. php artisan db:seed --class=absents_seed
 ```
 
 **When conducting seeding command, please do the command on sequential steps from 1-4 because the data contains foreign keys this can caused error if inserted first.**

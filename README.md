@@ -1,5 +1,5 @@
 ## Attendance Monitoring Website
-This website has main task to gather attendance data, beside that provide calculation of Early, Late, and Overwork and show attendance logs, we build this website based on Laravel 8 Framework, with Chart.JS for graph library.
+This website has main task to gather attendance data, beside that provide calculation of Early, Late, and Overwork and show attendance logs, we build this website based on Laravel 8 Framework, with Chart.JS for graph library, disclaimer this is not official version app of some business and still need enhancement.
 
 ## Application Requirement
 1. Webserver 

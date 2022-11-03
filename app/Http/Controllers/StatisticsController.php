@@ -39,10 +39,10 @@ class StatisticsController extends Controller
         $isEarly = DB::table('absents')->where('is_early','1')->count();
         $isOverwork = DB::table('absents')->where('is_overwork','1')->count();
         $data = array(
-            'count_telat' => $isLate,
             'count_ontime' => $isOntime,
             'count_early' => $isEarly,
-            'count_overwork' => $isOverwork
+            'count_overwork' => $isOverwork,
+            'count_telat' => $isLate
         );
         return $data;
     }
@@ -83,6 +83,14 @@ class StatisticsController extends Controller
         return $difference;
     }
 
+    public function returnArray($statistikData){
+        $result = array();
+        foreach($statistikData as $sd){
+            array_push($result, $sd);
+        }
+        return json_encode($result);
+    }
+
     public function index(){
         $userID = Auth::user()->employee_data_id;
         $data = DB::table('employee')->where('id', $userID)->first(); 
@@ -93,7 +101,7 @@ class StatisticsController extends Controller
             'isOverwork' => self::getTimeOverwork(),
             "isEarly" => self::getTimeEarly()
         );
-        $dataLabel = json_encode($statisticData);
+        $dataLabel = self::returnArray($statisticData);
         return view('Dashboard.statistics-ui', compact('data', 'dataAttendances', 'statisticData', 'timeData', 'dataLabel'));
     }
 }

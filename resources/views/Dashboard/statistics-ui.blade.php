@@ -187,7 +187,7 @@
 
         <div class="row">
             <!-- Left col -->
-            <section class="col-lg-6 connectedSortable ml-4">
+            <section style="margin-left:5%" class="col-lg-5 connectedSortable">
                 <!-- Custom tabs (Charts with tabs)-->
                 <div class="card">
                     <div class="card-header">
@@ -219,11 +219,45 @@
                 </div>
             <!-- /.card -->
             </section>  
+
+            <!-- Left col -->
+            <section class="col-lg-6 connectedSortable">
+                <!-- Custom tabs (Charts with tabs)-->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Statistik Data Karyawan Dan Jenis Kehadiran
+                        </h3>
+                        <div class="card-tools">
+                        <ul class="nav nav-pills ml-auto">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                            </li> -->
+                        </ul>
+                        </div>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content p-0">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="revenue-chart"
+                                style="position: relative; height: 300%;">
+                                <canvas id="barChart" height="300%" style="height: 300%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            <!-- /.card -->
+            </section>  
         </div>
+
     </div>
 
     <script>       
-
         //Data Kepuasan
         const labels = ['Ontime', 'Early', 'Overwork', 'Late'];
         const data = {
@@ -264,16 +298,63 @@
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins:{
+                    datalabels:{
+                        formatter: (value, context) =>{
+                            const datapoints = context.chart.data.datasets[0].data;
+                            function totalSum(total, datapoint){
+                                return total + datapoint;
+                            }
+                            const totalValue = datapoints.reduce(totalSum, 0);
+                            const percentage = ((value/totalValue)*100).toFixed(1);
+                            return `${percentage}%`;
+                        }
+                    }
                 }
             },
+            plugins: [ChartDataLabels]
         };
 
         // initialiaze block 
         const myChart = new Chart(
-            document.getElementById('statistiKemudahan'),
+            document.getElementById('statistikKemudahan'),
             config
         );
 
+        
+        //Chart Bar
+        const BarData = {
+        labels: labels,
+        datasets: [{
+                label: 'Diagram Kehadiran Karyawan',
+                data:  {!! $dataLabel !!},
+                backgroundColor: ['rgb(41, 52, 98)'],
+                borderWidth: 0
+            }]
+        };
+
+        //Config Section for Chart.js
+        const BarBulanConfig = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        };
+
+        // initialiaze block 
+        const BarBulanChart = new Chart(
+            document.getElementById('barChart'),
+            BarBulanConfig
+        );
     </script>
 @endsection
 
